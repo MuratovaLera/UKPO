@@ -1,0 +1,17 @@
+language: csharp
+sudo: required
+
+solution: MyPoker.sln
+
+
+before_install:
+    - sudo apt-get install nunit-console
+install:
+    - nuget restore MyPoker.sln
+    - nuget install TestStack.White -Version 0.13.3 -OutputDirectory WhiteTestDirectory
+    - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testRunner
+before_script:
+  - nuget restore MyPoker.sln
+script: 
+    - xbuild /p:Configuration=Debug MyPoker.sln
+
